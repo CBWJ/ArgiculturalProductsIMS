@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutList.cshtml";
+}
+
+<blockquote class="layui-elem-quote quoteBox">
+
+    <div class="layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input searchVal" id="username" placeholder="请输入用户名">
+        </div>
+    </div>
+    @*<div class="layui-inline">
+        <a class="layui-btn" data-action="search">搜索</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-normal" data-action="new">新建用户</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-warm" data-action="role">分配角色</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger layui-btn-normal" data-action="delBatch">批量删除</a>
+    </div>*@
+    @*@foreach (var auth in auths.Where(a => a.AType == "mainButton").OrderBy(a => a.AShowNumber))
+    {
+        <div class="layui-inline">
+            <a class="@auth.AClassName" data-action="@auth.ACode">@auth.AName</a>
+        </div>
+    }*@
+    @{ 
+        Html.RenderPartial("~/Views/Shared/_PartialMainButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
+    }
+</blockquote>
+<table id="datatable" lay-filter="table"></table>
+
+<script type="text/html" id="typeTpl">
+    {{#  if(d.UUserType == 1){ }}
+    系统
+    {{#  } else if(d.UUserType == 2){ }}
+    普通
+    {{#  } }}
+</script>
+<script type="text/html" id="lockTpl">
+    <!-- 这里的 checked 的状态只是演示 lay-filter用户监听事件-->
+    <input type="checkbox" name="lock" value="{{d.UIsLock}}" title="锁定" lay-filter="lockDemo" {{ d.UIsLock == 1 ? 'checked' : '' }} readonly>
+</script>
+<script type="text/html" id="barDemo">
+    @{
+        Html.RenderPartial("~/Views/Shared/_PartialToolbarButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
+    }
+</script>
+<script>
+    //console.log("页面数据");
+    window.tableConfig = {
+        elemSelector: "#datatable",
+        tableID: "dt",
+        colConfig:  [[{ type: 'checkbox', fixed: 'left' }
+                  , { field: 'ULoginName', title: '登录名', sort: true }
+                  , { field: 'UPassword', title: '登录密码', sort: true }
+                  , { field: 'UName', title: '用户名', sort: true }
+                  , { field: 'UUserType', title: '用户类别', templet: "#typeTpl", sort: true }
+                  , { field: 'UIsLock', title: '是否锁定', templet: "#lockTpl", sort: true }
+                  , { field: 'CreationTime', title: '创建时间', sort: true }
+                  , { fixed: 'right', width: 120, align: 'center', toolbar: '#barDemo' }//绑定列工具条
+                ]],
+        dataInterface: "@Url.Action("List", "User")"
+    };
+    window.dataOperation = {
+        moreAcive: {
+            search: function (table, layer) {
+                table.reload(tableConfig.tableID,//ID
+                    {
+                        where: { //设定异步数据接口的额外参数，任意设
+                            username: $("#username").val()
+                        },
+                        page: {
+                            curr: 1
+                        }
+                    });
+            },
+            role: function (table, layer) {
+                var checkStatus = table.checkStatus(tableConfig.tableID)
+                            , data = checkStatus.data;
+                if (data.length != 1) {
+                    layer.alert('请选中一行！', { icon: 2 });
+                    return;
+                }
+                layer.open({
+                    type: 2,
+                    title: '分配角色',
+                    content: '@Url.Action("AllocateRole", "User")/' + data[0].ID,
+                    scrollbar: false,
+                    area: ['700px', '500px'],
+                    resize: false,
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                    }
+                });
+            }
+        },
+        createConfig: {
+            title: "新建用户",
+            url: "@Url.Action("Create", "User")"
+        },
+        deleteConfig: {
+            url: "@Url.Action("Delete", "User")"
+        },
+        editConfig: {
+            title: "编辑用户",
+            url: "@Url.Action("Edit", "User")"
+        }
+    };
+</script>
+
