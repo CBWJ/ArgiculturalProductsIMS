@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="APIMSModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=F:\Workspace\ArgiculturalProductsIMS\ArgiculturalProductsIMS\APIMS.WebUI\App_Data\APIMS.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="APIMSModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=F:\Workspace\ArgiculturalProductsIMS\ArgiculturalProductsIMS\APIMS.WebUI\App_Data\APIMS.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Authority">
           <Key>
             <PropertyRef Name="ID" />
@@ -23,6 +23,17 @@
           <Property Name="CreationTime" Type="varchar" MaxLength="30" />
           <Property Name="EditorID" Type="integer" />
           <Property Name="EditingTime" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="DataColumn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DC_Code" Type="varchar" MaxLength="30" />
+          <Property Name="DC_Name" Type="varchar" MaxLength="30" />
+          <Property Name="DC_MID" Type="integer" />
+          <Property Name="DC_Order" Type="varchar" MaxLength="1024" />
+          <Property Name="DEnable" Type="integer" />
         </EntityType>
         <EntityType Name="Dictionary">
           <Key>
@@ -118,6 +129,18 @@
           <Property Name="MAID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AName" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <Association Name="FK_DataColumn_0_0">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="DataColumn" Type="Self.DataColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DataColumn">
+              <PropertyRef Name="DC_MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ModuleAuthority_0_0">
           <End Role="Authority" Type="Self.Authority" Multiplicity="0..1" />
           <End Role="ModuleAuthority" Type="Self.ModuleAuthority" Multiplicity="*" />
@@ -192,6 +215,7 @@
         </Association>
         <EntityContainer Name="APIMSModelStoreContainer">
           <EntitySet Name="Authority" EntityType="Self.Authority" store:Type="Tables" />
+          <EntitySet Name="DataColumn" EntityType="Self.DataColumn" store:Type="Tables" />
           <EntitySet Name="Dictionary" EntityType="Self.Dictionary" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" store:Type="Tables" />
           <EntitySet Name="ModuleAuthority" EntityType="Self.ModuleAuthority" store:Type="Tables" />
@@ -205,6 +229,10 @@
 [v_RoleAuth].[AName] AS [AName]
 FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_DataColumn_0_0" Association="Self.FK_DataColumn_0_0">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="DataColumn" EntitySet="DataColumn" />
+          </AssociationSet>
           <AssociationSet Name="FK_ModuleAuthority_0_0" Association="Self.FK_ModuleAuthority_0_0">
             <End Role="Authority" EntitySet="Authority" />
             <End Role="ModuleAuthority" EntitySet="ModuleAuthority" />
@@ -230,8 +258,7 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="APIMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -287,6 +314,7 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
           <Property Name="EditorID" Type="Int64" />
           <Property Name="EditingTime" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ModuleAuthority" Relationship="Self.FK_ModuleAuthority_1_0" FromRole="Module" ToRole="ModuleAuthority" />
+          <NavigationProperty Name="DataColumn" Relationship="APIMSModel.FK_DataColumn_0_0" FromRole="Module" ToRole="DataColumn" />
         </EntityType>
         <EntityType Name="ModuleAuthority">
           <Key>
@@ -463,7 +491,36 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <EntitySet Name="DataColumn" EntityType="APIMSModel.DataColumn" />
+          <AssociationSet Name="FK_DataColumn_0_0" Association="APIMSModel.FK_DataColumn_0_0">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="DataColumn" EntitySet="DataColumn" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DataColumn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DC_Code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DC_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DC_MID" Type="Int64" />
+          <Property Name="DC_Order" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="DEnable" Type="Int64" />
+          <NavigationProperty Name="Module" Relationship="APIMSModel.FK_DataColumn_0_0" FromRole="DataColumn" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_DataColumn_0_0">
+          <End Type="APIMSModel.Module" Role="Module" Multiplicity="0..1" />
+          <End Type="APIMSModel.DataColumn" Role="DataColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DataColumn">
+              <PropertyRef Name="DC_MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -586,6 +643,18 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
               <MappingFragment StoreEntitySet="v_RoleAuth">
                 <ScalarProperty Name="MAID" ColumnName="MAID" />
                 <ScalarProperty Name="AName" ColumnName="AName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataColumn">
+            <EntityTypeMapping TypeName="APIMSModel.DataColumn">
+              <MappingFragment StoreEntitySet="DataColumn">
+                <ScalarProperty Name="DEnable" ColumnName="DEnable" />
+                <ScalarProperty Name="DC_Order" ColumnName="DC_Order" />
+                <ScalarProperty Name="DC_MID" ColumnName="DC_MID" />
+                <ScalarProperty Name="DC_Name" ColumnName="DC_Name" />
+                <ScalarProperty Name="DC_Code" ColumnName="DC_Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

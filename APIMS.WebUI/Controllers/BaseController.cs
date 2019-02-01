@@ -64,7 +64,7 @@ namespace APIMS.WebUI.Controllers
                 mAdd.Invoke(modelSetInst, new object[] { model });
 
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -72,7 +72,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
@@ -122,7 +122,7 @@ namespace APIMS.WebUI.Controllers
                 }
 
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -130,7 +130,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
@@ -165,7 +165,7 @@ namespace APIMS.WebUI.Controllers
                 }                
 
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -173,7 +173,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message

@@ -1,0 +1,67 @@
+﻿@model int?
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutList.cshtml";
+}
+
+<blockquote class="layui-elem-quote quoteBox">
+    <div class="layui-form layui-inline">
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input searchVal" id="key" placeholder="请输入关键字">
+        </div>
+    </div>
+    @{
+        Html.RenderPartial("~/Views/Shared/_PartialMainButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
+    }
+</blockquote>
+<table id="datatable" lay-filter="table"></table>
+<script type="text/html" id="barDemo">
+    @{
+        Html.RenderPartial("~/Views/Shared/_PartialToolbarButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
+    }
+</script>
+<script>
+    //console.log("页面数据");
+    window.tableConfig = {
+        elemSelector: "#datatable",
+        tableID: "dt",
+        colConfig: [[{ type: 'checkbox', fixed: 'left' }
+                  , { field: 'DC_Code', title: '数据列字段', sort: true }
+                  , { field: 'DC_Name', title: '数据列名称', sort: true }
+                  , { field: 'DC_Order', title: '显示顺序', sort: true }
+                  , { field: 'DEnable', title: '启用', sort: true }
+                  , { fixed: 'right', width: 80, align: 'center', toolbar: '#barDemo' }//绑定列工具条
+                ]],
+        dataInterface: "@Url.Action("List", @ViewBag.Controller)",
+        afterRender: function (table, layer, form) {
+
+        }
+    };
+    window.dataOperation = {
+        moreAcive: {
+            search: function (table, layer) {
+                table.reload(tableConfig.tableID,//ID
+                    {
+                        where: { //设定异步数据接口的额外参数，任意设
+                            code: $("#key").val()
+                        },
+                        page: {
+                            curr: 1
+                        }
+                    });
+            }
+        },
+        createConfig: {
+            title: "新建字段",
+            url: "@Url.Action("Create", @ViewBag.Controller)"
+        },
+        deleteConfig: {
+            url: "@Url.Action("Delete", @ViewBag.Controller)"
+        },
+        editConfig: {
+            title: "编辑字段",
+            url: "@Url.Action("Edit", @ViewBag.Controller)"
+        }
+    };
+</script>
+

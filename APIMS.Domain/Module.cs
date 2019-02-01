@@ -9,15 +9,17 @@
 
 namespace APIMS.Domain
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Module
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Module()
         {
             this.ModuleAuthority = new HashSet<ModuleAuthority>();
+            this.DataColumn = new HashSet<DataColumn>();
         }
     
         public long ID { get; set; }
@@ -36,6 +38,10 @@ namespace APIMS.Domain
         public string EditingTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<ModuleAuthority> ModuleAuthority { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        public virtual ICollection<DataColumn> DataColumn { get; set; }
     }
 }

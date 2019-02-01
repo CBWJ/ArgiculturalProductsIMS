@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using APIMS.WebUI.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace APIMS.WebUI.Controllers
         // GET: Module
         public ActionResult Index()
         {
+            SetModuleAuthority();
             return View();
         }
 
@@ -42,7 +44,7 @@ namespace APIMS.WebUI.Controllers
 
             //    db.Module.Add(module);
             //    db.SaveChanges();
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 0,
             //        message = ""
@@ -50,7 +52,7 @@ namespace APIMS.WebUI.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 1,
             //        message = ex.Message
@@ -91,7 +93,7 @@ namespace APIMS.WebUI.Controllers
             //    editModule.EditingTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 
             //    db.SaveChanges();
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 0,
             //        message = ""
@@ -99,7 +101,7 @@ namespace APIMS.WebUI.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 1,
             //        message = ex.Message
@@ -128,7 +130,7 @@ namespace APIMS.WebUI.Controllers
             //        db.Module.Remove(r);
             //    }
             //    db.SaveChanges();
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 0,
             //        message = ""
@@ -136,7 +138,7 @@ namespace APIMS.WebUI.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 1,
             //        message = ex.Message
@@ -164,7 +166,7 @@ namespace APIMS.WebUI.Controllers
                         .ToList();
             try
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = "",
@@ -174,7 +176,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = "发生异常：" + ex.Message,
@@ -195,7 +197,7 @@ namespace APIMS.WebUI.Controllers
                           join a in db.Authority on ma.AID equals a.ID
                           where ma.MID == id
                           select a.ACode).ToList();
-            ViewBag.OwnCode = ownCode;//JsonConvert.SerializeObject(ownCode);
+            ViewBag.OwnCode = ownCode;//JsonHelper.SerializeObject(ownCode);
             return View(auth);
         }
         [HttpPost]
@@ -207,7 +209,7 @@ namespace APIMS.WebUI.Controllers
                 var allAutho = db.Authority.ToList();
                 //对于只提交选中项的问题，全部删除，再增加
                
-                var mas = db.ModuleAuthority.Where(ma => ma.MID == mId);
+                var mas = db.ModuleAuthority.Where(ma => ma.MID == mId).ToList();
                 db.ModuleAuthority.RemoveRange(mas);
                 //立即保存
                 foreach (var a in allAutho)
@@ -245,7 +247,7 @@ namespace APIMS.WebUI.Controllers
                     }
                 }
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -253,7 +255,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message

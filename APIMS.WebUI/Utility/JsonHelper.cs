@@ -10,7 +10,11 @@ namespace APIMS.WebUI.Utility
     {
         public static string SerializeObject(object obj)
         {
-            return JsonConvert.SerializeObject(obj);
+            var setting = new JsonSerializerSettings();
+            //setting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            setting.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            setting.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+            return JsonConvert.SerializeObject(obj, setting);
         }
     }
 }

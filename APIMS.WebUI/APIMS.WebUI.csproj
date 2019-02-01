@@ -382,6 +382,7 @@
     <Compile Include="Controllers\AuthorityController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DataColumnController.cs" />
     <Compile Include="Controllers\DictionaryController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -441,6 +442,8 @@
     <Content Include="Views\SystemSettings\Edit.cshtml" />
     <Content Include="Views\SystemSettings\OracleExportSettings.cshtml" />
     <Content Include="Views\SystemSettings\DmExportSettings.cshtml" />
+    <Content Include="Views\DataColumn\Index.cshtml" />
+    <Content Include="Views\DataColumn\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

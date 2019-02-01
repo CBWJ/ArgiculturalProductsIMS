@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using APIMS.WebUI.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace APIMS.WebUI.Controllers
 
                 db.Role.Add(role);
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -52,7 +53,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
@@ -85,7 +86,7 @@ namespace APIMS.WebUI.Controllers
             //    editRole.EditingTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                 
             //    db.SaveChanges();
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 0,
             //        message = ""
@@ -93,7 +94,7 @@ namespace APIMS.WebUI.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 1,
             //        message = ex.Message
@@ -122,7 +123,7 @@ namespace APIMS.WebUI.Controllers
             //        db.Role.Remove(r);
             //    }
             //    db.SaveChanges();
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 0,
             //        message = ""
@@ -130,7 +131,7 @@ namespace APIMS.WebUI.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    ret.Data = JsonConvert.SerializeObject(new
+            //    ret.Data = JsonHelper.SerializeObject(new
             //    {
             //        status = 1,
             //        message = ex.Message
@@ -155,7 +156,7 @@ namespace APIMS.WebUI.Controllers
                     .ToList();
             try
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = "",
@@ -165,7 +166,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = "发生异常：" + ex.Message,
@@ -212,7 +213,7 @@ namespace APIMS.WebUI.Controllers
                     }
                 }
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -220,7 +221,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message

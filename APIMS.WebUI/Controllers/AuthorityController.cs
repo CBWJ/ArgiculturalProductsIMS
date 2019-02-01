@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using APIMS.WebUI.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +74,7 @@ namespace APIMS.WebUI.Controllers
 
             try
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = "",
@@ -83,7 +84,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = "发生异常：" + ex.Message,

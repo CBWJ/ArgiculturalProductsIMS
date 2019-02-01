@@ -1,4 +1,5 @@
 ﻿using APIMS.Domain;
+using APIMS.WebUI.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace APIMS.WebUI.Controllers
                 dic = db.Dictionary.Where(d => d.DTypeCode == "SysSettings" && d.DCode == "Logo").FirstOrDefault();
                 dic.DName = Logo;
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -43,7 +44,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
@@ -73,7 +74,7 @@ namespace APIMS.WebUI.Controllers
                 {
                     fs.Write(byteIcon, 0, byteIcon.Length);
                 }
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     code = 0,
                     msg = fileName
@@ -81,7 +82,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     code = 1,
                     msg = ex.Message
@@ -117,7 +118,7 @@ namespace APIMS.WebUI.Controllers
                 dic.DName = backup_dir;
 
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -125,7 +126,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
@@ -157,7 +158,7 @@ namespace APIMS.WebUI.Controllers
                 dic.DName = pwd;
 
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -165,7 +166,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message

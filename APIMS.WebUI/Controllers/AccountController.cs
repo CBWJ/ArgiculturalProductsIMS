@@ -8,6 +8,7 @@ using APIMS.Domain;
 using APIMS.WebUI.Infrastructure.Abstract;
 using APIMS.WebUI.Infrastructure.Concrete;
 using Newtonsoft.Json;
+using APIMS.WebUI.Utility;
 
 namespace APIMS.WebUI.Controllers
 {
@@ -139,7 +140,7 @@ namespace APIMS.WebUI.Controllers
             {
                 if (LoginUser.UPassword != oldpwd)
                 {
-                    ret.Data = JsonConvert.SerializeObject(new
+                    ret.Data = JsonHelper.SerializeObject(new
                     {
                         status = 2,
                         message = "原密码不正确"
@@ -150,7 +151,7 @@ namespace APIMS.WebUI.Controllers
                     var user = db.User.Find(LoginUser.ID);
                     user.UPassword = newpwd;
                     db.SaveChanges();
-                    ret.Data = JsonConvert.SerializeObject(new
+                    ret.Data = JsonHelper.SerializeObject(new
                     {
                         status = 0,
                         message = ""
@@ -159,7 +160,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message

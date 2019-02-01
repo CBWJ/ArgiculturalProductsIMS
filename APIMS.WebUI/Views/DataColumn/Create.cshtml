@@ -1,0 +1,35 @@
+﻿@model APIMS.Domain.DataColumn
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutEdit.cshtml";
+}
+
+<input type="hidden" id="action" value="@Url.Action(ViewBag.Action, "Dictionary")" />
+@Html.HiddenFor(m => m.ID)
+<div class="layui-form-item">
+    <label class="layui-form-label">数据列字段</label>
+    <div class="layui-input-block">
+        @Html.TextBoxFor(m => m.DC_Code, new { lay_verify = "required", placeholder = "请输入数据列字段", autocomplete = "off", @class = "layui-input" })
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">数据列名称</label>
+    <div class="layui-input-block">
+        @Html.TextBoxFor(m => m.DC_Name, new { lay_verify = "required", placeholder = "请输入数据列名称", autocomplete = "off", @class = "layui-input" })
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">显示顺序</label>
+    <div class="layui-input-block">
+        @Html.TextBoxFor(m => m.DC_Order, new { lay_verify = "required", placeholder = "请输入显示顺序", autocomplete = "off", @class = "layui-input" })
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">启用</label>
+    <div class="layui-input-block">
+        <select name="DEnable" lay-verify="required">
+            <option value="1" @(Model.DEnable.HasValue ? (Model.DEnable.Value == 1 ? "selected" : "") : "")>是</option>
+            <option value="0" @(Model.DEnable.HasValue ? (Model.DEnable.Value == 0 ? "selected" : "") : "")>否</option>
+        </select>
+    </div>
+</div>

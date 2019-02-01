@@ -45,7 +45,7 @@ namespace APIMS.WebUI.Controllers
                     user.UIsLock = 0;
                 db.User.Add(user);
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -53,7 +53,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch(Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
@@ -94,7 +94,7 @@ namespace APIMS.WebUI.Controllers
                 editUser.EditingTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -102,7 +102,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
@@ -130,7 +130,7 @@ namespace APIMS.WebUI.Controllers
                     db.User.Remove(u);
                 }
                 db.SaveChanges();
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 0,
                     message = ""
@@ -138,7 +138,7 @@ namespace APIMS.WebUI.Controllers
             }
             catch (Exception ex)
             {
-                ret.Data = JsonConvert.SerializeObject(new
+                ret.Data = JsonHelper.SerializeObject(new
                 {
                     status = 1,
                     message = ex.Message
