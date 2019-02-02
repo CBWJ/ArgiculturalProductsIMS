@@ -62,6 +62,16 @@ namespace APIMS.WebUI.Controllers
                     }
                     break;
             }
+
+            //示例列表处理
+            foreach(var m in modules)
+            {
+                if(m.MUrl == "ListExample/Index")
+                {
+                    m.MUrl += "/" + m.ID.ToString(); 
+                }
+            }
+
             //以上是常规模块，下面根据会话创建虚拟菜单
             //Oracle
             //OracleMenu(ref modules);

@@ -1,0 +1,580 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <script src="~/Scripts/echarts/echarts.min.js"></script>
+    <script src="~/Scripts/echarts/china.js"></script>
+    <script src="~/Scripts/echarts/blue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            /* border: 1px solid #eee; */
+        }
+
+        body {
+            background-color: #1b315e;
+        }
+
+        canvas {
+            border-radius: 30px;
+        }
+
+        .layout-top {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 300px;
+        }
+
+            .layout-top > div {
+                float: left;
+                height: 100%;
+                box-sizing: border-box;
+                background-clip: content-box;
+            }
+
+            .layout-top .left, .layout-top .right {
+                width: 25%;
+            }
+
+            .layout-top > .left > .top, .layout-top > .left > .bottom, .layout-top > .right > .top, .layout-top > .right > .bottom {
+                width: 100%;
+                height: 50%;
+            }
+
+            .layout-top .center {
+                width: 50%;
+                border-radius: 30px;
+                border: 1px solid #eee;
+            }
+
+        .layout-bottom {
+            position: absolute;
+            height: 300px;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+            .layout-bottom .child {
+                float: left;
+                height: 300px;
+                width: 25%;
+                box-sizing: border-box;
+                background-clip: content-box;
+                /* width:-webkit-calc(25% - 16px);
+            width:-moz-calc(25% - 16px);
+            width:calc(25% - 16px);  */
+            }
+    </style>
+</head>
+<body>
+    <div class="layout-top">
+        <div class="left">
+            <div class="top" id="map1"></div>
+            <div class="bottom" id="line1"></div>
+        </div>
+        <div class="center" id="dashboard"></div>
+        <div class="right">
+            <div class="top" id="bar1"></div>
+            <div class="bottom" id="pie"></div>
+        </div>
+    </div>
+    <div class="layout-bottom">
+        <div class="child" id="bar2"></div>
+        <div class="child" id="line2"></div>
+        <div class="child" id="map2"></div>
+        <div class="child" id="line3"></div>
+    </div>
+    <script>
+            // 基于准备好的dom，初始化echarts实例
+            var map1 = echarts.init(document.getElementById('map1'), 'blue');
+
+            function randomData() {
+                return Math.round(Math.random()*500);
+            }
+            var mydata = [
+                    {name: '北京',value: '100' },{name: '天津',value: randomData() },
+                    {name: '上海',value: randomData() },{name: '重庆',value: randomData() },
+                    {name: '河北',value: randomData() },{name: '河南',value: randomData() },
+                    {name: '云南',value: randomData() },{name: '辽宁',value: randomData() },
+                    {name: '黑龙江',value: randomData() },{name: '湖南',value: randomData() },
+                    {name: '安徽',value: randomData() },{name: '山东',value: randomData() },
+                    {name: '新疆',value: randomData() },{name: '江苏',value: randomData() },
+                    {name: '浙江',value: randomData() },{name: '江西',value: randomData() },
+                    {name: '湖北',value: randomData() },{name: '广西',value: randomData() },
+                    {name: '甘肃',value: randomData() },{name: '山西',value: randomData() },
+                    {name: '内蒙古',value: randomData() },{name: '陕西',value: randomData() },
+                    {name: '吉林',value: randomData() },{name: '福建',value: randomData() },
+                    {name: '贵州',value: randomData() },{name: '广东',value: randomData() },
+                    {name: '青海',value: randomData() },{name: '西藏',value: randomData() },
+                    {name: '四川',value: randomData() },{name: '宁夏',value: randomData() },
+                    {name: '海南',value: randomData() },{name: '台湾',value: randomData() },
+                    {name: '香港',value: randomData() },{name: '澳门',value: randomData() }
+                ];
+                var optionMap = {
+                    backgroundColor: '#1b315e',
+                    title: {
+                        text: '2018年全国柑橘生产量（单位：万吨）',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item'
+                    },
+
+                    //左侧小导航图标
+                    visualMap: {
+                        show : true,
+                        x: 'left',
+                        y: 'center',
+                        min: 0,
+                        max: 600,
+                        // splitList: [
+                        //     {start: 500, end:600},{start: 400, end: 500},
+                        //     {start: 300, end: 400},{start: 200, end: 300},
+                        //     {start: 100, end: 200},{start: 0, end: 100},
+                        // ],
+                        //color: ['#ffffff', '#ffffff', '#ffffff','#74e2ca', '#e6ac53', '#9fb5ea']
+                        //color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
+                        inRange: {
+                            color: ['white','gray', 'orangered']
+                        },
+                        textStyle: {
+                            color: '#fff'
+                        },
+                    },
+
+                    //配置属性
+                    series: [{
+                        name: '数据',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: true,
+                        label: {
+                            normal: {
+                                show: true,  //省份名称
+                                textStyle: {
+                                    color: 'rgba(255, 255, 0, 1)'
+                                }
+                            },
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        data:mydata  //数据
+                    }]
+                };
+                //使用制定的配置项和数据显示图表
+                map1.setOption(optionMap);
+
+            var line1 = echarts.init(document.getElementById('line1'), 'blue');
+            var optionLine = {
+                title: {
+                        text: '近10年水果生产量（单位：万吨）',
+                        subtext: '',
+                        x:'center'
+                    },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name:'邮件营销',
+                        type:'line',
+                        stack: '总量',
+                        data:[120, 132, 101, 134, 90, 230, 210, 90, 230, 210, 240]
+                    },
+                    {
+                        name:'联盟广告',
+                        type:'line',
+                        stack: '总量',
+                        data:[220, 182, 191, 234, 290, 330, 310, 290, 330, 310, 250]
+                    }
+                ]
+            }
+            line1.setOption(optionLine);
+
+            var bar1 = echarts.init(document.getElementById('bar1'), 'blue');
+            optionBar1 = {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    source: [
+                        ['product', '苹果出口量', '苹果汁出口量', '2017'],
+                        ['201801', 67.2, 53.9],
+                        ['201802', 66.2, 52.9],
+                        ['201803', 65.2, 51.9],
+                        ['201804', 64.2, 50.9],
+                        ['201805', 63.2, 49.9],
+                        ['201806', 62.2, 48.9],
+                        ['201807', 61.2, 47.9],
+                        ['201808', 60.2, 46.9],
+                        ['201809', 59.2, 45.9],
+                        ['201810', 58.2, 44.9],
+                        ['201811', 57.2, 43.9],
+                        ['201812', 56.2, 42.9]
+                    ]
+                },
+                xAxis: {type: 'category'},
+                yAxis: {},
+                // Declare several bar series, each will be mapped
+                // to a column of dataset.source by default.
+                series: [
+                    {type: 'bar'},
+                    {type: 'bar'}
+                ]
+            };
+            bar1.setOption(optionBar1);
+
+            var pie = echarts.init(document.getElementById('pie'), 'blue');
+            var optionPie = {
+                title : {
+                    text: '全国排名前5名的农产品',
+                    subtext: '',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['水稻','猪肉','小麦','番茄','鸡蛋']
+                },
+                series : [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data:[
+                            {value:400, name:'水稻'},
+                            {value:380, name:'猪肉'},
+                            {value:250, name:'小麦'},
+                            {value:200, name:'番茄'},
+                            {value:100, name:'鸡蛋'}
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            pie.setOption(optionPie);
+
+            var bar2 = echarts.init(document.getElementById('bar2'), 'blue');
+            var optionBar2 = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    }
+                },
+                legend: {
+                    data:['西瓜生产量','西瓜销量','平均温度']
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '销量',
+                        min: 0,
+                        max: 250,
+                        interval: 50,
+                        axisLabel: {
+                            formatter: '{value}'
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '温度',
+                        min: 0,
+                        max: 25,
+                        interval: 5,
+                        axisLabel: {
+                            formatter: '{value} °C'
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name:'西瓜生产量',
+                        type:'bar',
+                        data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                    },
+                    {
+                        name:'西瓜销量',
+                        type:'bar',
+                        data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+                    },
+                    {
+                        name:'平均温度',
+                        type:'line',
+                        yAxisIndex: 1,
+                        data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+                    }
+                ]
+            };
+            bar2.setOption(optionBar2);
+
+            var line2 = echarts.init(document.getElementById('line2'), 'blue');
+            var optionLine2 = {
+                title : {
+                    text: '近7年农产品生产总量',
+                    subtext: '',
+                    x:'center'
+                },
+                xAxis: {
+                type: 'category',
+                data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: [820, 932, 901, 934, 1290, 1330, 1320],
+                    type: 'line'
+                }]
+            };
+            line2.setOption(optionLine2);
+
+            var map2 = echarts.init(document.getElementById('map2'), 'blue');
+            var optionMap2 = {
+                    backgroundColor: '#1b315e',
+                    title: {
+                        text: '2018年全国马铃薯生产量（单位：万吨）',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item'
+                    },
+
+                    //左侧小导航图标
+                    visualMap: {
+                        show : true,
+                        x: 'left',
+                        y: 'center',
+                        splitList: [
+                            {start: 500, end:600},{start: 400, end: 500},
+                            {start: 300, end: 400},{start: 200, end: 300},
+                            {start: 100, end: 200},{start: 0, end: 100},
+                        ],
+                        color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea'],
+                        textStyle: {
+                            color: '#fff'
+                        },
+                    },
+
+                    //配置属性
+                    series: [{
+                        name: '数据',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: true,
+                        label: {
+                            normal: {
+                                show: true,  //省份名称
+                                textStyle: {
+                                    color: 'rgba(255, 255, 0, 1)'
+                                }
+                            },
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        data:mydata  //数据
+                    }]
+                };
+                //使用制定的配置项和数据显示图表
+                map2.setOption(optionMap2);
+
+                var line3 = echarts.init(document.getElementById('line3'), 'blue');
+                var optionLine3 = {
+                    title : {
+                        text: '近7年芒果销量监测',
+                        subtext: '',
+                        x:'center'
+                    },
+                    xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2012', '2013', '2014', '2015', '2016', '2017', '2018']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: [820, 932, 901, 934, 1290, 1330, 1320],
+                        type: 'line',
+                        areaStyle: {}
+                    }]
+                };
+                line3.setOption(optionLine3);
+
+
+        var  chart =  echarts.init(document.getElementById('dashboard'), 'blue');
+        var opts = {
+            title:{
+                text: '2018年苹果售价',
+                x: 'center'
+            },
+            legend: {
+                    data:['西瓜生产量','西瓜销量','平均温度']
+                },
+            series:[
+                {
+                    name:'日均价',
+                    type: 'gauge',
+                    z:3,
+                    min:0,
+                    max:10,
+                    radius: '50%',
+                    axisLine: {            // 坐标轴线
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            width: 20
+                        }
+                    },
+                    axisTick: {            // 坐标轴小标记
+                        length: 25,        // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    splitLine: {           // 分隔线
+                        length: 30,         // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    /*axisLabel: {
+                        backgroundColor: 'auto',
+                        borderRadius: 2,
+                        color: '#eee',
+                        padding: 3,
+                        textShadowBlur: 2,
+                        textShadowOffsetX: 1,
+                        textShadowOffsetY: 1,
+                        textShadowColor: '#222'
+                    },*/
+                    title : {
+                        // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder',
+                        fontSize: 20,
+                        fontStyle: 'italic'
+                    },
+                    data:[{value: 6.59, name: ''}]
+                },
+                {
+                    name: '月均价',
+                    type: 'gauge',
+                    center: ['20%', '55%'],    // 默认全局居中
+                    radius: '40%',
+                    min:0,
+                    max:10,
+                    axisLine: {            // 坐标轴线
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            width: 8
+                        }
+                    },
+                    axisTick: {            // 坐标轴小标记
+                        length:12,        // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    splitLine: {           // 分隔线
+                        length:20,         // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    pointer: {
+                        width:5
+                    },
+                    title: {
+                        offsetCenter: [0, '-30%'],       // x, y，单位px
+                    },
+                    detail: {
+                        // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder'
+                    },
+                    data:[{value: 7.1, name: ''}]
+                },
+                {
+                    name: '年均价',
+                    type: 'gauge',
+                    center: ['80%', '55%'],    // 默认全局居中
+                    radius: '40%',
+                    min:0,
+                    max:10,
+                    axisLine: {            // 坐标轴线
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            width: 8
+                        }
+                    },
+                    axisTick: {            // 坐标轴小标记
+                        length:12,        // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    splitLine: {           // 分隔线
+                        length:20,         // 属性length控制线长
+                        lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                            color: 'auto'
+                        }
+                    },
+                    pointer: {
+                        width:5
+                    },
+                    title: {
+                        offsetCenter: [0, '-30%'],       // x, y，单位px
+                    },
+                    detail: {
+                        // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder'
+                    },
+                    data:[{value: 7.5, name: ''}]
+                }
+
+            ]
+        };
+        chart.setOption(opts);
+    </script>
+</body>
+</html>

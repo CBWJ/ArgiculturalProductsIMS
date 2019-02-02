@@ -15,6 +15,13 @@
     }
 </blockquote>
 <table id="datatable" lay-filter="table"></table>
+<script type="text/html" id="titleTpl">
+    {{#  if(d.DEnable == 0){ }}
+    否
+    {{#  } else { }}
+    是
+    {{#  } }}
+</script>
 <script type="text/html" id="barDemo">
     @{
         Html.RenderPartial("~/Views/Shared/_PartialToolbarButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
@@ -29,10 +36,10 @@
                   , { field: 'DC_Code', title: '数据列字段', sort: true }
                   , { field: 'DC_Name', title: '数据列名称', sort: true }
                   , { field: 'DC_Order', title: '显示顺序', sort: true }
-                  , { field: 'DEnable', title: '启用', sort: true }
-                  , { fixed: 'right', width: 80, align: 'center', toolbar: '#barDemo' }//绑定列工具条
+                  , { field: 'DEnable', title: '启用', sort: true, templet: '#titleTpl' }
+                  , { fixed: 'right', width: 120, align: 'center', toolbar: '#barDemo' }//绑定列工具条
                 ]],
-        dataInterface: "@Url.Action("List", @ViewBag.Controller)",
+        dataInterface: "@Url.Action("List", @ViewBag.Controller)?mId=@Model.Value",
         afterRender: function (table, layer, form) {
 
         }
@@ -43,7 +50,8 @@
                 table.reload(tableConfig.tableID,//ID
                     {
                         where: { //设定异步数据接口的额外参数，任意设
-                            code: $("#key").val()
+                            mId: @Model.Value,
+                            key: $("#key").val()
                         },
                         page: {
                             curr: 1
@@ -53,7 +61,7 @@
         },
         createConfig: {
             title: "新建字段",
-            url: "@Url.Action("Create", @ViewBag.Controller)"
+            url: "@Url.Action("Create", @ViewBag.Controller)/@Model.Value"
         },
         deleteConfig: {
             url: "@Url.Action("Delete", @ViewBag.Controller)"

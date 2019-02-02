@@ -4,8 +4,9 @@
     Layout = "~/Views/Shared/_LayoutEdit.cshtml";
 }
 
-<input type="hidden" id="action" value="@Url.Action(ViewBag.Action, "Dictionary")" />
+<input type="hidden" id="action" value="@Url.Action(ViewBag.Action, "DataColumn")" />
 @Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.DC_MID)
 <div class="layui-form-item">
     <label class="layui-form-label">数据列字段</label>
     <div class="layui-input-block">

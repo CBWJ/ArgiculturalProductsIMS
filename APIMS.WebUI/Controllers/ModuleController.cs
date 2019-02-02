@@ -14,7 +14,9 @@ namespace APIMS.WebUI.Controllers
         public ActionResult Index()
         {
             SetModuleAuthority();
-            return View();
+            //顶级菜单模块
+            var module = db.Module.Where(m => m.MParentID == 0).ToList();
+            return View(module);
         }
 
         // GET: Module/Details/5
@@ -147,7 +149,7 @@ namespace APIMS.WebUI.Controllers
             //return ret;
         }
 
-        public ActionResult List(int page = 1, int limit = 20, string type = "")
+        public ActionResult List(int page = 1, int limit = 20, string type = "", string module = "")
         {
             JsonResult ret = new JsonResult();
             ret.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -156,9 +158,9 @@ namespace APIMS.WebUI.Controllers
             {
                 modules = modules.Where(m => m.MName.Contains(type) || m.MType.Contains(type)).ToList();
             }
-            if (!string.IsNullOrWhiteSpace(type))
+            if (!string.IsNullOrWhiteSpace(module))
             {
-                modules = modules.Where(m => m.MType.Contains(type)).ToList();
+                modules = modules.Where(m => m.MParentID.ToString() == module).ToList();
             }
             int cnt = modules.Count();
             modules = modules.Skip((page - 1) * limit)

@@ -199,7 +199,7 @@ namespace APIMS.WebUI.Controllers
         /// <summary>
         /// 设置模块权限
         /// </summary>
-        protected void SetModuleAuthority()
+        protected void SetModuleAuthority(int moduleId = 0)
         {
             //var rawUrl = Request.RawUrl;
             //string url = rawUrl.Substring(1).ToUpper();
@@ -207,10 +207,15 @@ namespace APIMS.WebUI.Controllers
             var action = RouteData.Values["action"];
             ViewBag.Controller = controller;
             string url = string.Format("{0}/{1}", controller, action);
-
-            long mId = (from m in db.Module
-                        where m.MUrl.ToUpper() == url.ToUpper()
-                        select m.ID).FirstOrDefault();
+            long mId;
+            if (moduleId == 0)
+            {
+                mId = (from m in db.Module
+                       where m.MUrl.ToUpper() == url.ToUpper()
+                       select m.ID).FirstOrDefault();
+            }
+            else
+                mId = moduleId;
             List<Authority> auths = null;
             if (LoginUser.UUserType < 2)
             {
