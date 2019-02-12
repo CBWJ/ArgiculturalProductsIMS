@@ -1,7 +1,9 @@
-﻿@model List<APIMS.Domain.DataColumn>
+﻿@using System.Data
+@model List<APIMS.Domain.DataColumn>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLayui.cshtml";
+    DataTable gridData = (DataTable)ViewBag.GridData;
 }
 
 <blockquote class="layui-elem-quote quoteBox">
@@ -25,12 +27,12 @@
         </tr>
     </thead>
     <tbody>
-        @for(int i = 1; i <= 10; ++i)
+        @foreach(DataRow row in gridData.Rows)
         {
             <tr>
                 @foreach (var col in Model)
                 {
-                    <td>@string.Format("{0}{1}", col.DC_Name, i)</td>
+                    <td>@row[col.DC_Code].ToString()</td>
                 }
             </tr>
         }

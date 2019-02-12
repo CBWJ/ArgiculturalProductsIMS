@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLayui.cshtml";
+}
+
+<blockquote class="layui-elem-quote quoteBox">
+    <div class="layui-form layui-inline">
+        地区
+        <div class="layui-input-inline">
+            <select id="type" name="type" lay-verify="required" lay-search lay-filter="type">
+                <option value="">请选择</option>
+                <option value="beijing">北京</option>
+                <option value="shanghai">上海</option>
+            </select>
+        </div>
+        农产品
+        <div class="layui-input-inline">
+            <select id="type" name="type" lay-verify="required" lay-search lay-filter="type">
+                <option value="">请选择</option>
+                <option value="小麦及混合麦">小麦及混合麦</option>
+                <option value="玉米">玉米</option>
+                <option value="稻谷、谷子和高粱">稻谷、谷子和高粱</option>
+                <option value="糙米">糙米</option>
+                <option value="大麦类">大麦类</option>
+                <option value="黑麦、燕麦">黑麦、燕麦</option>
+            </select>
+        </div>
+        分析类型
+        <div class="layui-input-inline">
+            <select id="type" name="type" lay-verify="required" lay-search lay-filter="type">
+                <option value="">请选择</option>
+                <option value="批发价格每日走势">批发价格每日走势</option>
+                <option value="批发价格月度走势">批发价格月度走势</option>
+                <option value="批发价格季度走势">批发价格季度走势</option>
+                <option value="零售价格每日走势">零售价格每日走势</option>
+                <option value="零售价格月度走势">零售价格月度走势</option>
+                <option value="零售价格季度走势">零售价格季度走势</option>
+                <option value="交易数量产品分布">交易数量产品分布</option>
+                <option value="交易数量市场分布">交易数量市场分布</option>
+                <option value="市场产品构成情况">市场产品构成情况</option>
+                <option value="零售价分析预测">零售价分析预测</option>
+            </select>
+        </div>
+    </div>
+    @{
+        Html.RenderPartial("~/Views/Shared/_PartialMainButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
+    }
+</blockquote>
+<div class="content">
+    <div id="chart"></div>
+</div>
+<style>
+    .content{
+        position:absolute;
+        border:1px solid #ccc;
+        bottom:0px;
+        left:0;
+        right:0;
+        top:70px;
+        padding:10px;
+    }
+    .content #chart{
+        width:100%;
+        height:100%;
+    }
+</style>
+    <!-- 引入 ECharts 文件 -->
+<script src="~/Scripts/echarts/echarts.min.js"></script>
+<script src="~/Scripts/echarts/china.js"></script>
+<script src="~/Scripts/echarts/blue.js"></script>
+<script>
+    layui.use(['form'], function () { });
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('chart'));
+
+    var base = +new Date(2019, 1, 12);
+    var oneDay = 24 * 3600 * 1000;
+    var date = [];
+
+    var data = [2.5];
+
+    for (var i = 1; i < 10; i++) {
+        var now = new Date(base += oneDay);
+        date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'));
+        data.push(rnd(240, 280) / 100);
+    }
+
+    var option = {
+        //title: {
+        //    left: 'center',
+        //    text: '零售价格每日走势',
+        //    subtext: '北京——玉米'
+        //},
+        title: {
+            left: 'center',
+            text: '零售价格分析预测',
+            subtext: '上海——大麦'
+        },
+        xAxis: {
+            type: 'category',
+            data: date
+        },
+        yAxis: {
+            name: '价格(元/斤)',
+            type: 'value'
+        },
+        series: [{
+            data: data,
+            type: 'line',
+            itemStyle: {
+                normal: {
+                    label: { show: true },
+                    lineStyle: {
+                        color: '#00FFFF'
+                    }
+                }
+            }
+        }]
+    };
+    myChart.setOption(option);
+
+    function rnd(n, m) {
+        var random = Math.floor(Math.random() * (m - n + 1) + n);
+        return random;
+    }
+</script>

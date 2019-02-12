@@ -32,7 +32,7 @@
           <Property Name="DC_Code" Type="varchar" MaxLength="30" />
           <Property Name="DC_Name" Type="varchar" MaxLength="30" />
           <Property Name="DC_MID" Type="integer" />
-          <Property Name="DC_Order" Type="varchar" MaxLength="1024" />
+          <Property Name="DC_Order" Type="integer" />
           <Property Name="DEnable" Type="integer" />
         </EntityType>
         <EntityType Name="Dictionary">
@@ -47,6 +47,16 @@
           <Property Name="DHasChild" Type="integer" />
           <Property Name="DParentID" Type="integer" />
           <Property Name="DEnable" Type="integer" />
+        </EntityType>
+        <EntityType Name="GridData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GD_MID" Type="integer" Nullable="false" />
+          <Property Name="GD_ROW" Type="integer" />
+          <Property Name="GD_Property" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="GD_Value" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="Module">
           <Key>
@@ -141,6 +151,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GridData_0_0">
+          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="GridData" Type="Self.GridData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GridData">
+              <PropertyRef Name="GD_MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ModuleAuthority_0_0">
           <End Role="Authority" Type="Self.Authority" Multiplicity="0..1" />
           <End Role="ModuleAuthority" Type="Self.ModuleAuthority" Multiplicity="*" />
@@ -217,6 +239,7 @@
           <EntitySet Name="Authority" EntityType="Self.Authority" store:Type="Tables" />
           <EntitySet Name="DataColumn" EntityType="Self.DataColumn" store:Type="Tables" />
           <EntitySet Name="Dictionary" EntityType="Self.Dictionary" store:Type="Tables" />
+          <EntitySet Name="GridData" EntityType="Self.GridData" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" store:Type="Tables" />
           <EntitySet Name="ModuleAuthority" EntityType="Self.ModuleAuthority" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" />
@@ -232,6 +255,10 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
           <AssociationSet Name="FK_DataColumn_0_0" Association="Self.FK_DataColumn_0_0">
             <End Role="Module" EntitySet="Module" />
             <End Role="DataColumn" EntitySet="DataColumn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GridData_0_0" Association="Self.FK_GridData_0_0">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="GridData" EntitySet="GridData" />
           </AssociationSet>
           <AssociationSet Name="FK_ModuleAuthority_0_0" Association="Self.FK_ModuleAuthority_0_0">
             <End Role="Authority" EntitySet="Authority" />
@@ -314,6 +341,7 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
           <Property Name="EditorID" Type="Int64" />
           <Property Name="EditingTime" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ModuleAuthority" Relationship="Self.FK_ModuleAuthority_1_0" FromRole="Module" ToRole="ModuleAuthority" />
+          <NavigationProperty Name="GridData" Relationship="APIMSModel.FK_GridData_0_0" FromRole="Module" ToRole="GridData" />
           <NavigationProperty Name="DataColumn" Relationship="APIMSModel.FK_DataColumn_0_0" FromRole="Module" ToRole="DataColumn" />
         </EntityType>
         <EntityType Name="ModuleAuthority">
@@ -491,12 +519,40 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <EntitySet Name="GridData" EntityType="APIMSModel.GridData" />
+          <AssociationSet Name="FK_GridData_0_0" Association="APIMSModel.FK_GridData_0_0">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="GridData" EntitySet="GridData" />
+          </AssociationSet>
           <EntitySet Name="DataColumn" EntityType="APIMSModel.DataColumn" />
           <AssociationSet Name="FK_DataColumn_0_0" Association="APIMSModel.FK_DataColumn_0_0">
             <End Role="Module" EntitySet="Module" />
             <End Role="DataColumn" EntitySet="DataColumn" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="GridData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GD_MID" Type="Int64" Nullable="false" />
+          <Property Name="GD_ROW" Type="Int64" />
+          <Property Name="GD_Property" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="GD_Value" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Module" Relationship="APIMSModel.FK_GridData_0_0" FromRole="GridData" ToRole="Module" />
+        </EntityType>
+        <Association Name="FK_GridData_0_0">
+          <End Type="APIMSModel.Module" Role="Module" Multiplicity="1" />
+          <End Type="APIMSModel.GridData" Role="GridData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GridData">
+              <PropertyRef Name="GD_MID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="DataColumn">
           <Key>
             <PropertyRef Name="ID" />
@@ -505,7 +561,7 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
           <Property Name="DC_Code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DC_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DC_MID" Type="Int64" />
-          <Property Name="DC_Order" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="DC_Order" Type="Int64" />
           <Property Name="DEnable" Type="Int64" />
           <NavigationProperty Name="Module" Relationship="APIMSModel.FK_DataColumn_0_0" FromRole="DataColumn" ToRole="Module" />
         </EntityType>
@@ -643,6 +699,17 @@ FROM [v_RoleAuth] AS [v_RoleAuth]</DefiningQuery>
               <MappingFragment StoreEntitySet="v_RoleAuth">
                 <ScalarProperty Name="MAID" ColumnName="MAID" />
                 <ScalarProperty Name="AName" ColumnName="AName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GridData">
+            <EntityTypeMapping TypeName="APIMSModel.GridData">
+              <MappingFragment StoreEntitySet="GridData">
+                <ScalarProperty Name="GD_Value" ColumnName="GD_Value" />
+                <ScalarProperty Name="GD_Property" ColumnName="GD_Property" />
+                <ScalarProperty Name="GD_ROW" ColumnName="GD_ROW" />
+                <ScalarProperty Name="GD_MID" ColumnName="GD_MID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

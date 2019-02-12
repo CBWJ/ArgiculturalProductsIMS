@@ -18,7 +18,7 @@ namespace APIMS.Domain
         public string DC_Code { get; set; }
         public string DC_Name { get; set; }
         public Nullable<long> DC_MID { get; set; }
-        public string DC_Order { get; set; }
+        public Nullable<long> DC_Order { get; set; }
         public Nullable<long> DEnable { get; set; }
     
         public virtual Module Module { get; set; }

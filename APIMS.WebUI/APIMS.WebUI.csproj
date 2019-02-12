@@ -390,6 +390,7 @@
     <Compile Include="Controllers\DictionaryController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndicatorAnalysisController.cs" />
     <Compile Include="Controllers\ListExampleController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -451,6 +452,7 @@
     <Content Include="Views\DataColumn\Create.cshtml" />
     <Content Include="Views\ListExample\Index.cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
+    <Content Include="Views\IndicatorAnalysis\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

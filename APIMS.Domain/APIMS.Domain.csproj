@@ -93,6 +93,9 @@
     <Compile Include="Dictionary.cs">
       <DependentUpon>APIMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GridData.cs">
+      <DependentUpon>APIMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Module.cs">
       <DependentUpon>APIMSModel.tt</DependentUpon>
     </Compile>

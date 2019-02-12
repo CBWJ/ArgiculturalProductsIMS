@@ -20,7 +20,9 @@
         <AssociationConnector Association="APIMSModel.FK_RoleAuthority_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="APIMSModel.FK_UserRole_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="APIMSModel.FK_UserRole_1_0" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="APIMSModel.DataColumn" Width="1.5" PointX="3" PointY="13.875" />
+        <EntityTypeShape EntityType="APIMSModel.GridData" Width="1.5" PointX="4.875" PointY="13.875" />
+        <AssociationConnector Association="APIMSModel.FK_GridData_0_0" />
+        <EntityTypeShape EntityType="APIMSModel.DataColumn" Width="1.5" PointX="3" PointY="16.875" />
         <AssociationConnector Association="APIMSModel.FK_DataColumn_0_0" />
       </Diagram>
     </edmx:Diagrams>
