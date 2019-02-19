@@ -227,3 +227,20 @@
 .skin-blue .tab-content{
     border-left-color: #228fbd;
 }
+/*ÂÌÉ«Ö÷Ìâ*/
+.skin-green .tab-header ul li a:hover{
+    color:#00a73c;
+}
+.skin-green .tab-header>ul>li.selected a{
+    color: #00a73c;
+}
+.skin-green .tab-header ul .selected{
+    color:#00a73c;
+    border:1px solid #00a73c;
+}
+.skin-green .tab-content{
+    border-top-color: #00a73c;
+}
+.skin-green .tab-content{
+    border-left-color: #00a73c;
+}

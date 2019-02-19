@@ -11,7 +11,7 @@
     <!-- 引入 ECharts 文件 -->
     <script src="~/Scripts/echarts/echarts.min.js"></script>
     <script src="~/Scripts/echarts/china.js"></script>
-    <script src="~/Scripts/echarts/blue.js"></script>
+    @*<script src="~/Scripts/echarts/blue.js"></script>*@
     <style>
         * {
             margin: 0;
@@ -23,7 +23,8 @@
         }
 
         body {
-            background-color: #1b315e;
+            /*background-color: #1b315e;*/
+            background-color: #c1e8cf;
         }
 
         canvas {
@@ -100,7 +101,7 @@
     </div>
     <script>
             // 基于准备好的dom，初始化echarts实例
-            var map1 = echarts.init(document.getElementById('map1'), 'blue');
+            var map1 = echarts.init(document.getElementById('map1')/*, 'blue'*/);
 
             function randomData() {
                 return Math.round(Math.random()*500);
@@ -125,7 +126,7 @@
                     {name: '香港',value: randomData() },{name: '澳门',value: randomData() }
                 ];
                 var optionMap = {
-                    backgroundColor: '#1b315e',
+                    //backgroundColor: '#1b315e',
                     title: {
                         text: '2018年全国柑橘生产量（单位：万吨）',
                         subtext: '',
@@ -149,12 +150,12 @@
                         // ],
                         //color: ['#ffffff', '#ffffff', '#ffffff','#74e2ca', '#e6ac53', '#9fb5ea']
                         //color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea']
-                        inRange: {
-                            color: ['white','gray', 'orangered']
-                        },
-                        textStyle: {
-                            color: '#fff'
-                        },
+                        //inRange: {
+                        //    color: ['white','gray', 'orangered']
+                        //},
+                        //textStyle: {
+                        //    color: '#fff'
+                        //},
                     },
 
                     //配置属性
@@ -166,9 +167,9 @@
                         label: {
                             normal: {
                                 show: true,  //省份名称
-                                textStyle: {
-                                    color: 'rgba(255, 255, 0, 1)'
-                                }
+                                //textStyle: {
+                                //    color: 'rgba(255, 255, 0, 1)'
+                                //}
                             },
                             emphasis: {
                                 show: false
@@ -374,7 +375,7 @@
 
             var map2 = echarts.init(document.getElementById('map2'), 'blue');
             var optionMap2 = {
-                    backgroundColor: '#1b315e',
+                    //backgroundColor: '#1b315e',
                     title: {
                         text: '2018年全国马铃薯生产量（单位：万吨）',
                         subtext: '',
@@ -394,10 +395,10 @@
                             {start: 300, end: 400},{start: 200, end: 300},
                             {start: 100, end: 200},{start: 0, end: 100},
                         ],
-                        color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea'],
-                        textStyle: {
-                            color: '#fff'
-                        },
+                        //color: ['#5475f5', '#9feaa5', '#85daef','#74e2ca', '#e6ac53', '#9fb5ea'],
+                        //textStyle: {
+                        //    color: '#fff'
+                        //},
                     },
 
                     //配置属性
@@ -409,9 +410,9 @@
                         label: {
                             normal: {
                                 show: true,  //省份名称
-                                textStyle: {
-                                    color: 'rgba(255, 255, 0, 1)'
-                                }
+                                //textStyle: {
+                                //    color: 'rgba(255, 255, 0, 1)'
+                                //}
                             },
                             emphasis: {
                                 show: false

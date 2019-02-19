@@ -3,9 +3,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="utf-8">
+    <link rel="stylesheet" href="~/Content/local/font.css" />  
     <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
     <title>@ViewBag.Title</title>
     <style>
+        html,body{
+            font-family: Arial, FounderBlack, Microsoft YaHei, SimSun , Tahoma, Helvetica, "\5b8b\4f53", sans-serif;
+        }
         /*红色主题*/
         .skin-red .layui-elem-quote {
             border-left: 5px solid #E30000;
@@ -43,9 +47,27 @@
         .skin-blue .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after {
             border-bottom-color:#33a3dc;
         }
+        /*绿色主题*/
+        .skin-green .layui-elem-quote {
+            border-left: 5px solid #00a73c;
+        }
+         /*格式分页样式*/
+        .skin-green .layui-laypage a:hover {
+            color: #00a73c;
+        }
+        .skin-green .layui-laypage .layui-laypage-curr .layui-laypage-em {
+            background-color: #00a73c;
+        }
+        /*选项卡样式*/
+        .skin-green .layui-tab-brief>.layui-tab-title .layui-this {
+        color: #00a73c;
+        }
+        .skin-green .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after {
+            border-bottom-color:#26c35e;
+        }
     </style>
 </head>
-<body class="skin-blue">
+<body class="skin-green">
     <script src="~/Scripts/layui/layui.js"></script>
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/local/extension.js"></script>

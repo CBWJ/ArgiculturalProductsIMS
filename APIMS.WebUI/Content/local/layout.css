@@ -7,10 +7,9 @@ body{
     overflow-y: hidden;
     background-color: #fff;
 }
-
 html,body{
     height: 100%;
-    font-family: Arial, Microsoft YaHei, SimSun , Tahoma, Helvetica, "\5b8b\4f53", sans-serif;
+    font-family: Arial, FounderBlack, Microsoft YaHei, SimSun , Tahoma, Helvetica, "\5b8b\4f53", sans-serif;
 }
 .main_body{
     height: 100%;
@@ -152,4 +151,20 @@ html,body{
 /*左侧折叠区*/
 .skin-blue .menu_fold{
     background: linear-gradient(to right, #1b315e, #228fbd); /* 标准的语法 */
+}
+
+/*绿色主题*/
+.skin-green .main_body_top{
+    background: linear-gradient(#056f2c, #00a73c); /* 标准的语法 */
+}
+.skin-green .content_menu .menu_trigger .trigger_button{
+    background-color: #00a73c;
+}
+
+.skin-green .content_menu .menu_trigger .normal_button{
+    background-color: #673AB7;
+}
+/*左侧折叠区*/
+.skin-green .menu_fold {
+    background: linear-gradient(to right, #056f2c, #00a73c); /* 标准的语法 */
 }

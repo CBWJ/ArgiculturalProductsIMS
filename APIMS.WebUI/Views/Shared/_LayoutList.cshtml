@@ -3,10 +3,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">\
+    <link rel="stylesheet" href="~/Content/local/font.css" /> 
     <link rel="stylesheet" href="~/Scripts/layui/css/layui.css">
     <title>Index</title>
     <style>
+        html,body{
+            font-family: Arial, FounderBlack, Microsoft YaHei, SimSun , Tahoma, Helvetica, "\5b8b\4f53", sans-serif;
+        }
         /*红色主题*/
         .skin-red .layui-elem-quote{
             border-left: 5px solid #E30000;
@@ -30,9 +34,20 @@
         .skin-blue .layui-laypage .layui-laypage-curr .layui-laypage-em {
             background-color: #228fbd;
         }
+        /*绿色主题*/
+        .skin-green .layui-elem-quote{
+            border-left: 5px solid #00a73c;
+        }
+        /*格式分页样式*/
+        .skin-green .layui-laypage a:hover {
+            color: #00a73c;
+        }
+        .skin-green .layui-laypage .layui-laypage-curr .layui-laypage-em {
+            background-color: #00a73c;
+        }
     </style>
 </head>
-<body class="skin-blue">
+<body class="skin-green">
     @RenderBody()
     <script src="~/Scripts/layui/layui.js"></script>
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
@@ -67,8 +82,8 @@
             var layer = layui.layer;
             var form = layui.form;
             layer.config({
-                extend: 'blue/style.css', //加载您的扩展样式
-                skin: 'layer-ext-blue'
+                extend: 'green/style.css', //加载您的扩展样式
+                skin: 'layer-ext-green'
             });
             //执行渲染
             table.render({

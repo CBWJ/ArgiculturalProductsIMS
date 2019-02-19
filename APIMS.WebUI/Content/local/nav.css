@@ -104,3 +104,13 @@
 .skin-blue .navbar .main_menu>li.active{
     background-color: #33a3dc;
 }
+/*ÂÌÉ«Ö÷Ìâ*/
+.skin-green .menu_user{
+    background-color: #00a73c;
+}
+.skin-green .navbar .main_menu>li:hover{
+    background-color: #26c35e;
+}
+.skin-green .navbar .main_menu > li.active {
+    background-color: #26c35e;
+}

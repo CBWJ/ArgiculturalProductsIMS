@@ -128,6 +128,7 @@
     <Content Include="App_Data\APIMS.db" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\local\font.css" />
     <Content Include="Content\local\layout.css" />
     <Content Include="Content\local\leftMenu-ace.css" />
     <Content Include="Content\local\nav.css" />
@@ -139,6 +140,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\local\方正黑体简体.TTF" />
     <None Include="Properties\PublishProfiles\发布DbMonitor.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="images\login_background_.jpg" />
@@ -277,6 +279,7 @@
     <Content Include="Scripts\layui\css\modules\layer\default\loading-0.gif" />
     <Content Include="Scripts\layui\css\modules\layer\default\loading-1.gif" />
     <Content Include="Scripts\layui\css\modules\layer\default\loading-2.gif" />
+    <Content Include="Scripts\layui\css\modules\layer\green\style.css" />
     <Content Include="Scripts\layui\css\modules\layer\red\style.css" />
     <Content Include="Scripts\layui\font\iconfont.svg" />
     <Content Include="Scripts\layui\images\face\0.gif" />
