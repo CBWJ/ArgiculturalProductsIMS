@@ -391,6 +391,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataColumnController.cs" />
     <Compile Include="Controllers\DictionaryController.cs" />
+    <Compile Include="Controllers\DrugResidueController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicatorAnalysisController.cs" />
@@ -456,6 +457,7 @@
     <Content Include="Views\ListExample\Index.cshtml" />
     <Content Include="Views\Charts\Index.cshtml" />
     <Content Include="Views\IndicatorAnalysis\Index.cshtml" />
+    <Content Include="Views\DrugResidue\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

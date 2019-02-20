@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLayui.cshtml";
+}
+
+<blockquote class="layui-elem-quote quoteBox">
+    <div class="layui-form layui-inline">
+        地区
+        <div class="layui-input-inline">
+            <select id="type" name="type" lay-verify="required" lay-search lay-filter="type">
+                <option value="">请选择</option>
+                <option value="beijing">北京</option>
+                <option value="shanghai">上海</option>
+                <option value="shanghai">资源县</option>
+            </select>
+        </div>
+        农产品
+        <div class="layui-input-inline">
+            <select id="type" name="type" lay-verify="required" lay-search lay-filter="type">
+                <option value="">请选择</option>
+                <option value="小麦及混合麦">小麦及混合麦</option>
+                <option value="玉米">玉米</option>
+                <option value="稻谷、谷子和高粱">稻谷、谷子和高粱</option>
+                <option value="糙米">糙米</option>
+                <option value="大麦类">大麦类</option>
+                <option value="黑麦、燕麦">黑麦、燕麦</option>
+            </select>
+        </div>
+        @*分析类型
+        <div class="layui-input-inline">
+            <select id="type" name="type" lay-verify="required" lay-search lay-filter="type">
+                <option value="">请选择</option>
+                <option value="批发价格每日走势">批发价格每日走势</option>
+                <option value="批发价格月度走势">批发价格月度走势</option>
+                <option value="批发价格季度走势">批发价格季度走势</option>
+                <option value="零售价格每日走势">零售价格每日走势</option>
+                <option value="零售价格月度走势">零售价格月度走势</option>
+                <option value="零售价格季度走势">零售价格季度走势</option>
+                <option value="交易数量产品分布">交易数量产品分布</option>
+                <option value="交易数量市场分布">交易数量市场分布</option>
+                <option value="市场产品构成情况">市场产品构成情况</option>
+                <option value="零售价分析预测">零售价分析预测</option>
+            </select>*@
+        </div>
+    </div>
+    @{
+        Html.RenderPartial("~/Views/Shared/_PartialMainButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
+    }
+</blockquote>
+<div class="content">
+    <div id="chart"></div>
+</div>
+<style>
+    .content {
+        position: absolute;
+        border: 1px solid #ccc;
+        bottom: 0px;
+        left: 0;
+        right: 0;
+        top: 70px;
+        padding: 10px;
+    }
+
+        .content #chart {
+            width: 100%;
+            height: 100%;
+        }
+</style>
+<!-- 引入 ECharts 文件 -->
+<script src="~/Scripts/echarts/echarts.min.js"></script>
+<script src="~/Scripts/echarts/china.js"></script>
+<script src="~/Scripts/echarts/blue.js"></script>
+<script>
+    layui.use(['form'], function () { });
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('chart'));
+    var option = {
+        title: {
+            text: '资源县地区玉米药物残留分析',
+            subtext: '测试数据'
+        },
+        legend: {
+            data: ['中国农药残留标准', '玉米残留值']
+        },
+        xAxis: [
+        {
+            type: 'category',
+            data: ['敌敌畏', '辛硫磷', '草甘膦', '倍硫磷', '敌百虫', '对硫磷', '二嗪磷', '甲拌磷', '杀螟硫磷', '乙酰甲胺磷', '乐果']
+        }
+        ],
+        yAxis: [
+        {
+            type: 'value'
+        }
+        ],
+        series: [
+            {
+                name: '中国农药残留标准',
+                type: 'bar',
+                data: [0.2, 0.05, 0.1, 0.05, 0.1, 0, 0.5, 0, 0.5, 0.5, 1],
+                markPoint: {
+                    data: [
+                        { type: 'max', name: '最大值' },
+                        { type: 'min', name: '最小值' }
+                    ]
+                }
+            },
+            {
+                name: '玉米残留值',
+                type: 'bar',
+                data: [0.14, 0.05, 0.09, 0.08, 0.1, 0, 0.5, 0.05, 0.51, 0.45, 0.8],
+                markPoint: {
+                    data: [
+                        { type: 'max', name: '最大值' },
+                        { type: 'min', name: '最小值' }
+                    ]
+                },
+            }
+        ]
+    };
+    myChart.setOption(option);
+
+    function rnd(n, m) {
+        var random = Math.floor(Math.random() * (m - n + 1) + n);
+        return random;
+    }
+</script>

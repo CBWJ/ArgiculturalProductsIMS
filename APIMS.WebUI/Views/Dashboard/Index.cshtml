@@ -3,9 +3,99 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLayui.cshtml";
 }
+<style>
+    body{
+        background-color: #F2F2F2;
+    }
+    .layui-elem-quote{
+        background-color: #FFF;
+    }
+    .layui-row{
+        padding: 10px;
+    }
+    .layui-card{
+        height: 250px;
+    }
+    .layui-col-space10 {
+        margin: 0px;
+    }
+    .layui-card-header{
+        background-color: #00a73c;
+        color: #FFF;
+        background: linear-gradient(to right, #00a73c, #47b56e);
+    }
+</style>
 <blockquote class="layui-elem-quote layui-quote-nm">
     <div>
         @Model.UName，欢迎使用本系统。当前时间：@DateTime.Now.ToLongDateString() @DateTime.Now.ToLongTimeString()。
     </div>
 </blockquote>
-
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <div class="layui-card-header">农产品种类</div>
+            <div class="layui-card-body">
+                卡片式面板面板通常用于非白色背景色的主体内<br>
+                从而映衬出边框投影
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <div class="layui-card-header">下属单位农产品数量</div>
+            <div class="layui-card-body">
+                卡片式面板面板通常用于非白色背景色的主体内<br>
+                从而映衬出边框投影
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <div class="layui-card-header">农产品前5比例</div>
+            <div class="layui-card-body">
+                卡片式面板面板通常用于非白色背景色的主体内<br>
+                从而映衬出边框投影
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-md8">
+        <div class="layui-card">
+            <div class="layui-card-header">当季水果销量</div>
+            <div class="layui-card-body">
+                卡片式面板面板通常用于非白色背景色的主体内<br>
+                从而映衬出边框投影
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <div class="layui-card-header">本月销量排名</div>
+            <div class="layui-card-body">
+                卡片式面板面板通常用于非白色背景色的主体内<br>
+                从而映衬出边框投影
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-md8">
+        <div class="layui-card">
+            <div class="layui-card-header">最新资讯</div>
+            <div class="layui-card-body">
+                卡片式面板面板通常用于非白色背景色的主体内<br>
+                从而映衬出边框投影
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-card">
+            <div class="layui-card-header">采集信息</div>
+            <div class="layui-card-body">
+                卡片式面板面板通常用于非白色背景色的主体内<br>
+                从而映衬出边框投影
+            </div>
+        </div>
+    </div>
+</div>

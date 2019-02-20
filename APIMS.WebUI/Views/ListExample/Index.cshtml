@@ -17,13 +17,15 @@
         Html.RenderPartial("~/Views/Shared/_PartialMainButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
     }
 </blockquote>
-<table class="layui-table" lay-data="{height:full-100, url:'@Url.Action("List","ListExample")', page:true, id:'test'}" lay-filter="test">
+<table class="layui-table" lay-data="{height:full-100, url:'@Url.Action("List","ListExample")', page:true, id:'test'}, cols: [[{type:'checkbox'}]]" lay-filter="test">
     <thead>
         <tr>
+            <th lay-data="{type:'checkbox'}"></th>
             @foreach (var col in Model)
             {
                 <th lay-data="{field:'@col.DC_Code', sort: true}">@col.DC_Name</th>
             }
+            <th lay-data="{ fixed: 'right', width: 120, align: 'center', toolbar: '#barDemo' }"></th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +40,11 @@
         }
     </tbody>
 </table>
+<script type="text/html" id="barDemo">
+    @{
+        Html.RenderPartial("~/Views/Shared/_PartialToolbarButton.cshtml", (List<APIMS.Domain.Authority>)ViewBag.Authority);
+    }
+</script>
 <script>
     layui.use(['table'], function () { });
 </script>
