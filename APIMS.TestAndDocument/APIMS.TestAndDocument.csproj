@@ -53,6 +53,7 @@
     <None Include="doc\《农产品基本信息描述——禽蛋类》国家标准编制说明.doc" />
     <None Include="doc\《农产品基本信息描述——谷物类》国家标准编制说明.doc" />
     <None Include="doc\《农产品基本信息描述——食用菌类》国家标准编制说明.doc" />
+    <None Include="doc\中华人民共和国国家标准《全国主要产品分类与代码-第1部分可运输.doc" />
     <None Include="doc\农产品基础数据库管理系统需求.docx" />
     <None Include="doc\农产品基础数据库系统V01.0.doc" />
   </ItemGroup>
