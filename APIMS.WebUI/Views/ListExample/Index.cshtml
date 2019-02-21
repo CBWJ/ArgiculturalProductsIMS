@@ -32,6 +32,7 @@
         @foreach(DataRow row in gridData.Rows)
         {
             <tr>
+                <td></td>
                 @foreach (var col in Model)
                 {
                     <td>@row[col.DC_Code].ToString()</td>
